@@ -1,7 +1,7 @@
 using Pkg
 Pkg.activate(".")
 Pkg.instantiate() # Shift + Enter to execute a single line of code 
-
+Pkg.status()
 # Highlight the lines you want to execute and press Shift + Enter to execute the multiple lines
 
 using CSV
@@ -29,9 +29,9 @@ station_names = Dict(
 )
 
 
-include("config.jl")
+include("config.jl") 
 
-# Map of coordinates
+# Maping of the coordinates
 lon = df2.longitude_deg
 lat = df2.latitude_deg
 key = [station_names[k] for k in df2.station_id]
@@ -53,7 +53,7 @@ trace = scattermapbox(
 # Visualization settings
 layout = Layout(
     height = "500",
-    mapbox_accesstoken = MAPBOX_TOKEN, # Use your Mapbox Access Token (see README.md)
+    mapbox_accesstoken = MAPBOX_TOKEN, # Use your own Mapbox Access Token here (see README.md)
     mapbox_center_lon = median(lon),
     mapbox_center_lat = median(lat),
     mapbox_zoom = 13,
@@ -234,11 +234,6 @@ callback!(
     Input("sensor-dropdown", "value")
 ) do sensor_value
     dff_sensor = df[df.station_id .== sensor_value, :]
-
-    # # Determine the range for the last month
-    # end_date = maximum(dff_sensor.timestamp)
-    # start_date = end_date - Month(1)
-
     temp_plot = Plot(
         scatter(
             x=dff_sensor.timestamp,
@@ -255,7 +250,6 @@ callback!(
                 pad=attr(t=30)  # Add padding above the title
             ),
             xaxis=attr(
-                #range=[start_date, end_date],
                 rangeselector=attr(
                     buttons=[
                         attr(count=1, label="1M", step="month", stepmode="backward"),
@@ -284,11 +278,6 @@ callback!(
     Input("sensor-dropdown", "value")
 ) do sensor_value
     dff_sensor = df[df.station_id .== sensor_value, :]
-
-    # # Determine the range for the last month
-    # end_date = maximum(dff_sensor.timestamp)
-    # start_date = end_date - Month(1)
-
     humidity_plot = Plot(
         scatter(
             x=dff_sensor.timestamp,
@@ -305,7 +294,6 @@ callback!(
                 pad=attr(t=30)
             ),
             xaxis=attr(
-                #range=[start_date, end_date],
                 rangeselector=attr(
                     buttons=[
                         attr(count=1, label="1M", step="month", stepmode="backward"),
@@ -334,11 +322,6 @@ callback!(
     Input("sensor-dropdown", "value")
 ) do sensor_value
     dff_sensor = df[df.station_id .== sensor_value, :]
-    
-    # # Determine the range for the last month
-    # end_date = maximum(dff_sensor.timestamp)
-    # start_date = end_date - Month(1)
-
     precipitation_plot = Plot(
         bar(
             x=dff_sensor.timestamp,
@@ -383,11 +366,6 @@ callback!(
     Input("sensor-dropdown", "value")
 ) do sensor_value
     dff_sensor = df[df.station_id .== sensor_value, :]
-
-    # # Determine the range for the last month
-    # end_date = maximum(dff_sensor.timestamp)
-    # start_date = end_date - Month(1)
-
     radiation_plot = Plot(
         bar(
             x=dff_sensor.timestamp,
@@ -403,7 +381,6 @@ callback!(
                 pad=attr(t=30)
             ),
             xaxis=attr(
-                #range=[start_date, end_date],
                 rangeselector=attr(
                     buttons=[
                         attr(count=1, label="1M", step="month", stepmode="backward"),
@@ -432,11 +409,6 @@ callback!(
     Input("sensor-dropdown", "value")
 ) do sensor_value
     dff_sensor = df[df.station_id .== sensor_value, :]
-
-    # # Determine the range for the last month
-    # end_date = maximum(dff_sensor.timestamp)
-    # start_date = end_date - Month(1)
-
     wind_speed_plot = Plot(
         bar(
             x=dff_sensor.timestamp,
@@ -452,7 +424,6 @@ callback!(
                 pad=attr(t=30)
             ),
             xaxis=attr(
-                #range=[start_date, end_date],
                 rangeselector=attr(
                     buttons=[
                         attr(count=1, label="1M", step="month", stepmode="backward"),
@@ -572,4 +543,6 @@ end
 run_server(app, "0.0.0.0", 8050, debug=true)
 
 # Open your web browser and go to http://127.0.0.1:8050/ to view the dashboard locally
+
+# Ctrl + C to stop the dash app
 

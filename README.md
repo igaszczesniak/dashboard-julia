@@ -35,8 +35,8 @@ Mapbox is used for styling maps within the dashboard. To configure it, follow th
 
 #### Configure the Token in Your Project
 
-1. Navigate to the `source` folder in your project directory.
-2. Create a file named `config.jl` in the `source` folder.
+1. Navigate to the project folder.
+2. Create a file named `config.jl` in the project folder.
 3. Open `config.jl` and define your Mapbox Access Token by adding the following line:
 
     ```julia
