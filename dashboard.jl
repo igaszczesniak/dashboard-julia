@@ -337,7 +337,6 @@ callback!(
                 pad=attr(t=30)
             ),
             xaxis=attr(
-                #range=[start_date, end_date],
                 rangeselector=attr(
                     buttons=[
                         attr(count=1, label="1M", step="month", stepmode="backward"),
